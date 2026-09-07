@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.env
+.env.*
+*.log
+.DS_Store
+portfolio_conversation_export_for_codex.md
+PORTFOLIO_REVIEW.md
+PORTFOLIO_REVIEW_V2.md
+PORTFOLIO_REVIEW_V3.md
+V4_QA.md
+screenshots/
+take-screenshots.js

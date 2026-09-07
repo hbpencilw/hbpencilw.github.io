@@ -1,0 +1,364 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN SYSTEM — Hongbo Wang Portfolio
+   Visual language: Apple editorial restraint + JetBrains dev feel
+   ============================================================ */
+
+@theme {
+  /* --- Color Palette --- */
+  --color-surface-primary: #0a0a0a;
+  --color-surface-secondary: #111111;
+  --color-surface-tertiary: #1a1a1a;
+  --color-surface-elevated: #1f1f1f;
+  --color-surface-light: #f5f5f3;
+  --color-surface-warm: #fafaf8;
+
+  --color-text-primary: #f5f5f3;
+  --color-text-secondary: #a0a0a0;
+  --color-text-tertiary: #808080;
+  --color-text-dark: #0a0a0a;
+  --color-text-dark-secondary: #555555;
+
+  --color-accent: #3b82f6;
+  --color-accent-hover: #60a5fa;
+
+  --color-border: #222222;
+  --color-border-light: #e5e5e5;
+
+  /* --- Typography — powered by next/font CSS variables --- */
+  --font-sans: var(--font-inter), "SF Pro Display", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains), "SF Mono", "Fira Code", monospace;
+
+  /* --- Spacing --- */
+  --section-padding-desktop: 160px;
+  --section-padding-mobile: 80px;
+  --content-max: 1280px;
+  --content-wide: 1440px;
+  --reading-column: 680px;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* ============================================================
+   ACCESSIBILITY — Focus states + Skip link
+   ============================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.text-display {
+  font-size: clamp(3rem, 9vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.text-headline {
+  font-size: clamp(2.5rem, 7vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.text-section-title {
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.text-body-large {
+  font-size: clamp(1.1rem, 1.3vw, 1.35rem);
+  line-height: 1.7;
+  letter-spacing: -0.005em;
+}
+
+.text-body {
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.7;
+}
+
+.text-caption {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+
+.content-narrow {
+  max-width: var(--reading-column);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-normal {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-wide {
+  max-width: var(--content-wide);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================================
+   INTERACTIVE HELPERS
+   ============================================================ */
+
+.nav-blur {
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+}
+
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after,
+.link-underline:focus-visible::after {
+  width: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ============================================================
+   RESPONSIVE SCENE HEIGHTS
+   ============================================================ */
+
+.scroll-story-container {
+  height: 250vh;
+}
+
+.analytics-section {
+  height: 260vh;
+}
+
+@media (max-width: 768px) {
+  .scroll-story-container {
+    height: 150vh;
+  }
+
+  .analytics-section {
+    height: 180vh;
+  }
+}
+
+/* ============================================================
+   ANALYTICS SCENE — technical panel styles
+   ============================================================ */
+
+.insight-text {
+  opacity: 0;
+}
+
+.analytics-inner,
+.sql-reveal,
+.data-table,
+.data-row,
+.analytics-sql-panel,
+.chart-container,
+.chart-bar,
+.metric-display {
+  will-change: transform, opacity;
+}
+
+/* Chart bars: absolute positioned from bottom, fixed container height */
+.chart-bar {
+  position: absolute;
+  bottom: 0;
+  width: 14%;
+  transform-origin: bottom center;
+}
+
+.chart-area {
+  position: relative;
+  height: 140px; /* Fixed height for percentage-based bars */
+}
+
+@media (max-width: 768px) {
+  .chart-area {
+    height: 100px;
+  }
+}
+
+.sql-line {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.sql-keyword {
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.sql-string {
+  color: #a78bfa;
+}
+
+.sql-comment {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.data-cell {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ============================================================
+   P3: DARK → LIGHT TRANSITION ZONE
+   ============================================================ */
+
+.transition-zone {
+  overflow: hidden;
+}
+
+.transition-bg {
+  background: linear-gradient(
+    to bottom,
+    #0a0a0a 0%,
+    #1a1a18 20%,
+    #353533 40%,
+    #8a8a85 60%,
+    #d8d8d3 80%,
+    #fafaf8 100%
+  );
+  opacity: 0;
+}
+
+.transition-title {
+  transition: opacity 0.3s ease;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
